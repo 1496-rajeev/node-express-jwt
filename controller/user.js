@@ -20,22 +20,7 @@ const userLogin = async (req, res) => {
 };
 
 const dashBoard = async (req, res) => {
-  try {
-    const authHeader = req.headers.authorization;
-    if (!authHeader || !authHeader.startsWith('Bearer ')) {
-      res.status(400).json({ msg: 'No token' });
-    }
-    const token = authHeader.split(' ')[1];
-    // res.status(200).json(token);
-    try {
-      const decoded = jwt.verify(token, process.env.JWT_SECRETE);
-      res.status(200).json(decoded);
-    } catch (error) {
-      res.status(401).json({ msg: 'Invalid token' });
-    }
-  } catch (error) {
-    res.status(500).json({ msg: error });
-  }
+  res.status(200).json(req.user.username);
 };
 
 module.exports = { userLogin, dashBoard };
